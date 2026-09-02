@@ -1,0 +1,10 @@
+{
+  "collection": "ml_researcher",
+  "count": 1999,
+  "dimension": 256,
+  "sources": [
+    "ai_ml_deep_learning.pdf",
+    "bishop_pattern_recognition_ml.pdf"
+  ],
+  "updated_at": "2026-09-01T09:05:04.125913+00:00"
+}

@@ -1,0 +1,10 @@
+{
+  "collection": "ai_ml_engineer",
+  "count": 1047,
+  "dimension": 256,
+  "sources": [
+    "mitchell_machine_learning.pdf",
+    "ml_for_absolute_beginners.pdf"
+  ],
+  "updated_at": "2026-09-01T09:04:18.463278+00:00"
+}

@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+node_modules/
+frontend/.next/
+frontend/out/
+.git/
+data/knowledge_base/
+data/app.db*
+data/*.log
+.env
+.env*.local
+*.md
+AI_ML*.pdf

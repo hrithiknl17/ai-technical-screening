@@ -1,0 +1,21 @@
+# One-click deploy on Render: https://render.com/deploy (Blueprint).
+# The image builds the UI and serves it from the API, so a single web service
+# is the whole application.
+services:
+  - type: web
+    name: grounded-screening
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false          # set this in the Render dashboard
+      - key: LLM_MODEL
+        value: gemini-3.1-flash-lite
+      - key: EMBEDDING_PROVIDER
+        value: local
+      - key: APP_ENV
+        value: production
+      - key: DATABASE_URL
+        value: sqlite:////app/data/app.db

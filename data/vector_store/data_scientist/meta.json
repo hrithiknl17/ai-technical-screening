@@ -1,0 +1,10 @@
+{
+  "collection": "data_scientist",
+  "count": 899,
+  "dimension": 256,
+  "sources": [
+    "brownlee_master_ml_algorithms.pdf",
+    "intro_to_ml_with_python.pdf"
+  ],
+  "updated_at": "2026-09-01T09:04:27.383385+00:00"
+}

@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Submission Cover Sheet — Grounded</title>
+<style>
+  @page { size: A4; margin: 14mm 16mm 12mm 16mm; }
+  * { box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 9.1pt; line-height: 1.42; color: #16181c; margin: 0;
+  }
+  h1 { font-size: 20pt; letter-spacing: -0.5pt; margin: 0 0 4pt; }
+  h2 { font-size: 10.4pt; text-transform: uppercase; letter-spacing: 1.4pt; color: #3a3f47;
+       margin: 12pt 0 5pt; padding-bottom: 3pt; border-bottom: 1.2pt solid #16181c; }
+  p { margin: 0 0 6pt; }
+  code { font-family: "Cascadia Mono", Consolas, monospace; font-size: 8.6pt;
+         background: #f2f3f5; padding: 0.5pt 3pt; border-radius: 2pt; }
+  .eyebrow { font-size: 8.2pt; letter-spacing: 2.4pt; text-transform: uppercase;
+             color: #6b7280; margin-bottom: 10pt; }
+  .lede { font-size: 10.2pt; color: #4a5058; line-height: 1.42; margin: 0 0 4pt; max-width: 145mm; }
+  .rule { height: 3pt; width: 36mm; background: #16181c; margin: 8pt 0 12pt; }
+
+  table.form { width: 100%; border-collapse: collapse; }
+  table.form td { padding: 4pt 0; border-bottom: 0.6pt solid #dfe2e6; vertical-align: baseline; }
+  table.form td.label { width: 42mm; color: #6b7280; font-size: 8.8pt;
+                        text-transform: uppercase; letter-spacing: 0.7pt; }
+  .fill { display: inline-block; min-width: 78mm; border-bottom: 0.8pt solid #9aa0a8;
+          height: 11pt; vertical-align: baseline; }
+
+  table.check { width: 100%; border-collapse: collapse; font-size: 9.2pt; }
+  table.check th { text-align: left; font-size: 8.2pt; text-transform: uppercase;
+                   letter-spacing: 0.7pt; color: #3a3f47; background: #f2f3f5;
+                   padding: 4pt 7pt; border-bottom: 1pt solid #c8ccd2; }
+  table.check td { padding: 3.2pt 7pt; border-bottom: 0.6pt solid #e6e8eb; vertical-align: top; }
+  table.check td.box { width: 8mm; text-align: center; font-size: 10.5pt; line-height: 1; }
+  table.check td.req { width: 62mm; }
+  table.check td.where { color: #4a5058; font-size: 8.8pt; }
+  tbody tr:last-child td { border-bottom: 0.8pt solid #c8ccd2; }
+
+  .grid { display: table; width: 100%; table-layout: fixed; border-spacing: 9pt 0; margin: 0 -9pt; }
+  .cell { display: table-cell; width: 33.33%; border: 0.8pt solid #dfe2e6; border-radius: 3pt;
+          padding: 8pt 9pt; vertical-align: top; }
+  .cell .n { font-size: 17pt; letter-spacing: -0.5pt; line-height: 1.1; }
+  .cell .k { font-size: 8pt; text-transform: uppercase; letter-spacing: 0.9pt; color: #6b7280; margin-top: 2pt; }
+
+  .note { background: #f7f8f9; border-left: 2.5pt solid #16181c; padding: 7pt 10pt;
+          margin: 9pt 0 0; font-size: 8.9pt; color: #3a3f47; }
+  ul { margin: 0 0 6pt; padding-left: 15pt; }
+  li { margin-bottom: 2.5pt; }
+  .sign { margin-top: 14pt; display: table; width: 100%; table-layout: fixed; border-spacing: 14pt 0; }
+  .sign > div { display: table-cell; width: 50%; }
+  .sign .line { border-bottom: 0.8pt solid #9aa0a8; height: 16pt; }
+  .sign .cap { font-size: 8pt; text-transform: uppercase; letter-spacing: 0.9pt;
+               color: #6b7280; padding-top: 3.5pt; }
+  .foot { margin-top: 14pt; font-size: 8pt; color: #6b7280; border-top: 0.6pt solid #dfe2e6; padding-top: 6pt; }
+</style>
+</head>
+<body>
+
+<div class="eyebrow">PG-AGI · AI/ML &amp; Backend Engineering Intern · Submission</div>
+<h1>Grounded</h1>
+<p class="lede">RAG-driven technical screening — an AI interviewer that generates every question
+from a candidate resume and a role-specific textbook corpus, and can show the exact passages
+behind each one.</p>
+<div class="rule"></div>
+
+<h2>Candidate &amp; submission details</h2>
+<table class="form">
+  <tr><td class="label">Candidate</td><td><span class="fill"></span></td></tr>
+  <tr><td class="label">Email</td><td>nlhrithik123@gmail.com</td></tr>
+  <tr><td class="label">GitHub</td><td>github.com/hrithiknl17</td></tr>
+  <tr><td class="label">Role applied for</td><td>AI/ML &amp; Backend Engineering Intern</td></tr>
+  <tr><td class="label">Repository</td><td>https://github.com/hrithiknl17/ai-technical-screening</td></tr>
+  <tr><td class="label">Demo video</td><td><span class="fill"></span></td></tr>
+  <tr><td class="label">Live deployment</td><td><span class="fill"></span> <span style="color:#9aa0a8;font-size:8.4pt">(optional — Render blueprint included)</span></td></tr>
+  <tr><td class="label">Date submitted</td><td><span class="fill"></span></td></tr>
+</table>
+
+<h2>System at a glance</h2>
+<div class="grid">
+  <div class="cell"><div class="n">3,945</div><div class="k">indexed chunks</div></div>
+  <div class="cell"><div class="n">3</div><div class="k">roles · 6 books</div></div>
+  <div class="cell"><div class="n">22</div><div class="k">tests, fully offline</div></div>
+</div>
+<p style="margin-top:9pt">FastAPI · SQLAlchemy · SQLite · NumPy vector store · hybrid dense + BM25
+retrieval with MMR · Gemini · Next.js 15 App Router · Docker single-origin build.</p>
+
+<h2>Deliverables checklist</h2>
+<table class="check">
+  <thead>
+    <tr><th style="width:8mm"></th><th>Requirement</th><th>Where it lives</th></tr>
+  </thead>
+  <tbody>
+    <tr><td class="box">☑</td><td class="req">Complete GitHub repository, clean and structured</td><td class="where"><code>backend/</code> · <code>frontend/</code> · <code>data/</code> · <code>docs/</code></td></tr>
+    <tr><td class="box">☑</td><td class="req">README with setup, architecture, key design decisions</td><td class="where"><code>README.md</code> §1–§10</td></tr>
+    <tr><td class="box">☐</td><td class="req">Demo video (mandatory) — full flow, key features, component interaction</td><td class="where">link above; shot list in <code>README.md</code> §9</td></tr>
+    <tr><td class="box">☑</td><td class="req">Resume upload (PDF/text) and role selection</td><td class="where"><code>POST /api/resumes</code> · <code>SetupStage</code></td></tr>
+    <tr><td class="box">☑</td><td class="req">Resume parsing: skills, technologies, domain exposure</td><td class="where"><code>services/resume_service.py</code></td></tr>
+    <tr><td class="box">☑</td><td class="req">Context construction: dynamic queries and topics to evaluate</td><td class="where"><code>InterviewService._build_plan</code></td></tr>
+    <tr><td class="box">☑</td><td class="req">RAG: ingestion, chunking, embeddings, vector database</td><td class="where"><code>rag/</code> · <code>scripts/ingest_kb.py</code></td></tr>
+    <tr><td class="box">☑</td><td class="req">Retrieval grounded in the role corpus, not generic web knowledge</td><td class="where"><code>rag/retriever.py</code> — hybrid + MMR</td></tr>
+    <tr><td class="box">☑</td><td class="req">Question generation from retrieved context, non-templated</td><td class="where"><code>llm/prompts.py</code> · <code>InterviewService</code></td></tr>
+    <tr><td class="box">☑</td><td class="req">Interactive interview with session continuity</td><td class="where"><code>/api/sessions/*</code> · <code>InterviewStage</code></td></tr>
+    <tr><td class="box">☑</td><td class="req">Adaptive questioning based on previous responses <em>(optional)</em></td><td class="where">difficulty ladder + budgeted follow-ups</td></tr>
+    <tr><td class="box">☑</td><td class="req">Response handling: stored questions and answers</td><td class="where"><code>questions</code> · <code>answers</code> tables</td></tr>
+    <tr><td class="box">☑</td><td class="req">Structured final summary with insights</td><td class="where"><code>report_service.py</code> · <code>ReportStage</code></td></tr>
+    <tr><td class="box">☑</td><td class="req">Database persistence for sessions, Q&amp;A and reports</td><td class="where"><code>db/models.py</code> — 6 tables</td></tr>
+    <tr><td class="box">☑</td><td class="req">Modular architecture, separation of concerns, env-driven config</td><td class="where">routes → services → rag/llm/db · <code>core/config.py</code></td></tr>
+    <tr><td class="box">☑</td><td class="req">Robust error handling and validation</td><td class="where">one error contract, 422/404/409/502/503</td></tr>
+    <tr><td class="box">☑</td><td class="req">Traceability of how each question was generated</td><td class="where"><code>questions.retrieval_trace</code> · "Why this question"</td></tr>
+    <tr><td class="box">☑</td><td class="req">Design &amp; architecture document</td><td class="where"><code>docs/design-document.pdf</code></td></tr>
+  </tbody>
+</table>
+
+<h2>Beyond the baseline</h2>
+<ul>
+  <li><strong>Per-question provenance in the UI</strong> — retrieval query, cited pages and hybrid/dense/BM25
+      scores are shown to the user, not buried in logs.</li>
+  <li><strong>Hybrid retrieval with MMR</strong> and session-level chunk exclusion, so no two questions come
+      from the same paragraph.</li>
+  <li><strong>Adaptive difficulty ladder</strong> plus a budgeted follow-up mechanism (two per interview).</li>
+  <li><strong>Grading against the source passages</strong>, and report statistics that are computed rather than generated.</li>
+  <li><strong>Graceful degradation</strong> — runs end to end with no API key via <code>OFFLINE_MODE=1</code>;
+      rate-limited answers are stored ungraded rather than lost.</li>
+  <li><strong>Single-origin Docker build</strong> and a Render blueprint; committed vector index so a clone
+      runs without a 90 MB download.</li>
+</ul>
+
+<h2>How to verify in five minutes</h2>
+<table class="form">
+  <tr><td class="label">1 · Install</td><td><code>pip install -r backend/requirements.txt</code></td></tr>
+  <tr><td class="label">2 · Tests</td><td><code>cd backend &amp;&amp; python -m pytest -q</code> — 22 passing, no API key needed</td></tr>
+  <tr><td class="label">3 · Index status</td><td><code>python -m scripts.ingest_kb --status</code></td></tr>
+  <tr><td class="label">4 · Run</td><td><code>uvicorn app.main:app --port 8000</code> → UI at <code>/</code>, docs at <code>/docs</code></td></tr>
+  <tr><td class="label">5 · Headless demo</td><td><code>python -m scripts.demo_interview --role ai_ml_engineer --questions 3</code></td></tr>
+</table>
+
+<div class="note">The vector index ships with the repository, so steps 2–5 work on a fresh clone.
+Rebuilding from source needs <code>scripts.fetch_books</code> then <code>scripts.ingest_kb --all</code>
+(~40 s with the default local embedder).</div>
+
+<div class="sign">
+  <div><div class="line"></div><div class="cap">Candidate signature</div></div>
+  <div><div class="line"></div><div class="cap">Date</div></div>
+</div>
+
+<p class="foot">Grounded — submission cover sheet. Full design rationale in
+<code>docs/design-document.pdf</code>; setup and architecture in <code>README.md</code>.</p>
+
+</body>
+</html>
