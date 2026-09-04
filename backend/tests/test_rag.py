@@ -7,7 +7,7 @@ import pytest
 
 from app.rag.chunking import chunk_document
 from app.rag.embeddings import HashingEmbedder
-from app.rag.ingest import is_useful_chunk
+from app.rag.ingest import chunk_rejection_reason, is_useful_chunk
 from app.rag.loaders import LoadedDocument, LoadedPage, clean_text
 from app.rag.retriever import BM25Index, HybridRetriever
 from app.rag.vector_store import ChunkRecord, NumpyVectorStore
@@ -41,6 +41,42 @@ def test_quality_filter_rejects_front_matter_and_keeps_prose():
         "they grow decision trees to full depth without pruning them afterwards."
     )
     assert is_useful_chunk(prose)
+
+
+def test_quality_filter_names_the_reason_it_rejected_a_chunk():
+    assert chunk_rejection_reason("too short") == "too_short"
+    # equation soup: enough words, but mostly digits and operators
+    assert chunk_rejection_reason("xy = (3*4)/(7-2)^2 + " * 40) == "low_alpha_ratio"
+
+    contents = (
+        "Introduction to statistical learning theory .......... 4\n"
+        "Decision tree learning and inductive bias .......... 19\n"
+        "Evaluating hypotheses with confidence intervals .......... 44\n"
+        "Artificial neural networks and backpropagation .......... 81\n"
+        "Bayesian learning and minimum description length .......... 154\n"
+        "Computational learning theory and sample complexity .......... 201\n"
+        "Instance based learning and locally weighted regression .......... 230\n"
+        "Genetic algorithms and the hypothesis space search .......... 249\n"
+    )
+    assert chunk_rejection_reason(contents) == "toc_dot_leader"
+
+    bibliography = (
+        "Breiman, L. (1996). Bagging predictors. Machine Learning, 24.\n"
+        "Mitchell, T. (1997). Machine Learning. McGraw Hill, New York.\n"
+        "Quinlan, J. R. (1986). Induction of decision trees. Machine Learning.\n"
+        "Cover, T. and Hart, P. (1967). Nearest neighbor pattern classification.\n"
+        "Vapnik, V. (1995). The nature of statistical learning theory. Springer.\n"
+        "Freund, Y. and Schapire, R. (1997). A decision theoretic generalization.\n"
+    )
+    assert chunk_rejection_reason(bibliography) == "reference_list"
+
+    prose = (
+        "Backpropagation searches a hypothesis space of continuous weight values by "
+        "gradient descent on a differentiable error surface, and is guaranteed only "
+        "to converge to some local minimum rather than the global one, so momentum "
+        "and multiple random restarts are the usual practical remedies."
+    )
+    assert chunk_rejection_reason(prose) is None
 
 
 def test_hashing_embedder_is_deterministic_and_normalised():

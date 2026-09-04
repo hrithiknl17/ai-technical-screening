@@ -16,6 +16,7 @@ from __future__ import annotations
 import hashlib
 import logging
 import re
+from collections import Counter
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -32,8 +33,6 @@ from app.rag.vector_store import ChunkRecord, NumpyVectorStore, get_vector_store
 logger = logging.getLogger(__name__)
 
 _WORD_RE = re.compile(r"[A-Za-z]{2,}")
-_MIN_WORDS = 40
-_MIN_ALPHA_RATIO = 0.55
 # Lines that are mostly dot leaders / page numbers: tables of contents and indexes.
 _TOC_RE = re.compile(r"\.{4,}\s*\d+|\b\d+\s*[-–]\s*\d+,\s*\d+")
 
@@ -58,20 +57,30 @@ class IngestReport:
         }
 
 
-def is_useful_chunk(text: str) -> bool:
-    """Reject front matter, indexes, reference lists and OCR/equation noise."""
+def chunk_rejection_reason(text: str, *, settings: Settings | None = None) -> str | None:
+    """Why this chunk is not worth indexing, or None when it is.
+
+    Rejects front matter, indexes, reference lists and OCR/equation noise. The
+    reason is what ingestion tallies, so a dropped chunk leaves a trace.
+    """
+    settings = settings or get_settings()
     words = _WORD_RE.findall(text)
-    if len(words) < _MIN_WORDS:
-        return False
+    if len(words) < settings.chunk_filter_min_words:
+        return "too_short"
     alpha = sum(c.isalpha() or c.isspace() for c in text)
-    if alpha / max(len(text), 1) < _MIN_ALPHA_RATIO:
-        return False
-    if len(_TOC_RE.findall(text)) >= 3:
-        return False
+    if alpha / max(len(text), 1) < settings.chunk_filter_min_alpha_ratio:
+        return "low_alpha_ratio"
+    if len(_TOC_RE.findall(text)) >= settings.chunk_filter_toc_hits:
+        return "toc_dot_leader"
     # bibliography blocks: many "Surname, A. (1998)" patterns
-    if len(re.findall(r"\(\d{4}\)", text)) >= 4:
-        return False
-    return True
+    if len(re.findall(r"\(\d{4}\)", text)) >= settings.chunk_filter_reference_years:
+        return "reference_list"
+    return None
+
+
+def is_useful_chunk(text: str, *, settings: Settings | None = None) -> bool:
+    """Reject front matter, indexes, reference lists and OCR/equation noise."""
+    return chunk_rejection_reason(text, settings=settings) is None
 
 
 def _chunk_id(source: str, chunk: Chunk) -> str:
@@ -109,6 +118,7 @@ class IngestionPipeline:
         records: list[ChunkRecord] = []
         texts: list[str] = []
         doc_rows: list[KnowledgeDocument] = []
+        rejected: Counter[str] = Counter()
 
         for path in files:
             document = load_path(path)
@@ -121,7 +131,13 @@ class IngestionPipeline:
                 chunk_size=self.settings.chunk_size_chars,
                 chunk_overlap=self.settings.chunk_overlap_chars,
             )
-            kept = [c for c in chunks if is_useful_chunk(c.text)]
+            kept: list[Chunk] = []
+            for chunk in chunks:
+                reason = chunk_rejection_reason(chunk.text, settings=self.settings)
+                if reason:
+                    rejected[reason] += 1
+                else:
+                    kept.append(chunk)
             for chunk in kept:
                 records.append(
                     ChunkRecord(
@@ -159,6 +175,16 @@ class IngestionPipeline:
                     len(chunks),
                     len(kept),
                 )
+
+        if report.chunks_seen:
+            dropped = sum(rejected.values())
+            logger.info(
+                "filtered %s of %s chunks (%.1f%%): %s",
+                dropped,
+                report.chunks_seen,
+                100 * dropped / report.chunks_seen,
+                ", ".join(f"{r} {n}" for r, n in rejected.most_common()) or "none",
+            )
 
         if not records:
             logger.warning("nothing worth indexing for role %s", role_slug)
