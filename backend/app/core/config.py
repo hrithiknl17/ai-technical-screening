@@ -64,6 +64,16 @@ class Settings(BaseSettings):
     # --- rag ---------------------------------------------------------------
     chunk_size_chars: int = 1400
     chunk_overlap_chars: int = 220
+    #: Chunk quality filter (see app.rag.ingest). A chunk is dropped when it has
+    #: fewer words than `chunk_filter_min_words`, when letters and whitespace fall
+    #: below `chunk_filter_min_alpha_ratio` of its characters, or when it reaches
+    #: either match count below.
+    chunk_filter_min_words: int = 40
+    chunk_filter_min_alpha_ratio: float = 0.55
+    #: Dot-leader lines ("Chapter 2 ..... 19"): tables of contents and indexes.
+    chunk_filter_toc_hits: int = 3
+    #: "(1998)" citation years: bibliography and reference blocks.
+    chunk_filter_reference_years: int = 4
     retrieval_top_k: int = 6
     retrieval_candidate_k: int = 30
     retrieval_mmr_lambda: float = 0.65
